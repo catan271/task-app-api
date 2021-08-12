@@ -1,0 +1,5 @@
+#vscode run configuration
+.vscode
+
+#node_libraries
+node_modules

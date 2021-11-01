@@ -7,7 +7,6 @@ const router = new express.Router()
 
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
-
     try {
         const token = await user.generateAuthToken()
         await user.save()
@@ -30,7 +29,7 @@ router.post('/users/login', async (req, res, next) => {
     }
 })
 
-router.post('/users/logout', auth, async (req, res) => {
+router.get('/users/logout', auth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter(token => token.token !== req.token)
         await req.user.save()
@@ -41,7 +40,7 @@ router.post('/users/logout', auth, async (req, res) => {
     }
 })
 
-router.post('/users/logout-all', auth, async (req, res) => {
+router.get('/users/logout-all', auth, async (req, res) => {
     try {
         req.user.tokens = []
         await req.user.save()

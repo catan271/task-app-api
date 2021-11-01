@@ -1,0 +1,759 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Task app API",
+    "description": "API description powered by Swagger UI.",
+    "version": "2.0.0"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Register a new user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "email",
+                "password"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "catan"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "catan@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "Abcd1234"
+                },
+                "age": {
+                  "type": "number",
+                  "example": 20
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Register Succeeded",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object"
+                },
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Register fail"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Login",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "catan@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "Abcd1234"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login succeeded",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object"
+                },
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Login failed"
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Get profile",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get profile succeeded",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "age": {
+                  "type": "number",
+                  "example": 20
+                },
+                "_id": {
+                  "type": "string",
+                  "example": "6113630f9cd6a9395c92ce35"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "catan"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "catan@gmail.com"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2021-11-01T06:51:56.094Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2021-08-11T05:41:35.822Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Get profile failed"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Update profile",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "user update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "age": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update succeeded",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "age": {
+                  "type": "number",
+                  "example": 20
+                },
+                "_id": {
+                  "type": "string",
+                  "example": "6113630f9cd6a9395c92ce35"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "catan"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "catan@gmail.com"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2021-11-01T06:51:56.094Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2021-08-11T05:41:35.822Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Update failed"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Delete user",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "user update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "age": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete succeeded",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "age": {
+                  "type": "number",
+                  "example": 20
+                },
+                "_id": {
+                  "type": "string",
+                  "example": "6113630f9cd6a9395c92ce35"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "catan"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "catan@gmail.com"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2021-11-01T06:51:56.094Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2021-08-11T05:41:35.822Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Delete failed"
+          }
+        }
+      }
+    },
+    "/users/avatar": {
+      "post": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Set avatar",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "avatar",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succeeded"
+          },
+          "400": {
+            "description": "Fail"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Delete avatar",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succeeded"
+          },
+          "400": {
+            "description": "Fail"
+          }
+        }
+      }
+    },
+    "/users/{id}/avatar": {
+      "get": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Get avatar",
+        "parameters": [
+          {
+            "in": "path",
+            "required": true,
+            "name": "id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succeeded",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "400": {
+            "description": "Fail"
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "get": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Logout",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logout succeeded"
+          },
+          "400": {
+            "description": "Logout failed"
+          }
+        }
+      }
+    },
+    "/users/logout-all": {
+      "get": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Logout all tokens",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logout succeeded"
+          },
+          "400": {
+            "description": "Logout failed"
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "post": {
+        "tags": [
+          "TASK"
+        ],
+        "summary": "Create tag",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "task",
+            "schema": {
+              "type": "object",
+              "required": [
+                "description"
+              ],
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "example": "Create a task"
+                },
+                "completed": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "completed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "sortedBy",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succeeded",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "completed": {
+                  "type": "boolean"
+                },
+                "_id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "TASK"
+        ],
+        "summary": "Get tasks",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "completed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "sortedBy",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "skip",
+            "type": "number",
+            "description": "Example: createdAt:descending"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succeeded",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "completed": {
+                    "type": "boolean"
+                  },
+                  "_id": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "owner": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string"
+                  },
+                  "updatedAt": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "tags": [
+          "TASK"
+        ],
+        "summary": "Get task by Id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succeeded",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "completed": {
+                  "type": "boolean"
+                },
+                "_id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "TASK"
+        ],
+        "summary": "Update task by Id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "task",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "example": "Update a task"
+                },
+                "completed": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succeeded",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "completed": {
+                  "type": "boolean"
+                },
+                "_id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TASK"
+        ],
+        "summary": "Update task by Id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succeeded",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "completed": {
+                  "type": "boolean"
+                },
+                "_id": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      }
+    }
+  }
+}

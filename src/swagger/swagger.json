@@ -36,11 +36,11 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "example": "catan"
+                  "example": "Example"
                 },
                 "email": {
                   "type": "string",
-                  "example": "catan@gmail.com"
+                  "example": "example@gmail.com"
                 },
                 "password": {
                   "type": "string",
@@ -61,7 +61,33 @@
               "type": "object",
               "properties": {
                 "user": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "age": {
+                      "type": "number",
+                      "example": 20
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "6181f765cb884000167d5ce8"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Example"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "example@gmail.com"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2021-11-03T02:43:49.590Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2021-11-03T02:43:49.590Z"
+                    }
+                  }
                 },
                 "token": {
                   "type": "string"
@@ -94,7 +120,7 @@
               "properties": {
                 "email": {
                   "type": "string",
-                  "example": "catan@gmail.com"
+                  "example": "example@gmail.com"
                 },
                 "password": {
                   "type": "string",
@@ -111,7 +137,33 @@
               "type": "object",
               "properties": {
                 "user": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "age": {
+                      "type": "number",
+                      "example": 20
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "6181f765cb884000167d5ce8"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Example"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "example@gmail.com"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2021-11-03T02:43:49.590Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2021-11-03T02:43:49.590Z"
+                    }
+                  }
                 },
                 "token": {
                   "type": "string"
@@ -135,6 +187,7 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
           }
         ],
@@ -150,15 +203,15 @@
                 },
                 "_id": {
                   "type": "string",
-                  "example": "6113630f9cd6a9395c92ce35"
+                  "example": "6181f765cb884000167d5ce8"
                 },
                 "name": {
                   "type": "string",
-                  "example": "catan"
+                  "example": "Example"
                 },
                 "email": {
                   "type": "string",
-                  "example": "catan@gmail.com"
+                  "example": "example@gmail.com"
                 },
                 "createdAt": {
                   "type": "string",
@@ -185,6 +238,7 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
           },
           {
@@ -225,11 +279,11 @@
                 },
                 "name": {
                   "type": "string",
-                  "example": "catan"
+                  "example": "Example"
                 },
                 "email": {
                   "type": "string",
-                  "example": "catan@gmail.com"
+                  "example": "example@gmail.com"
                 },
                 "createdAt": {
                   "type": "string",
@@ -256,28 +310,8 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "user update",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "age": {
-                  "type": "number"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              }
-            }
           }
         ],
         "responses": {
@@ -296,11 +330,11 @@
                 },
                 "name": {
                   "type": "string",
-                  "example": "catan"
+                  "example": "Example"
                 },
                 "email": {
                   "type": "string",
-                  "example": "catan@gmail.com"
+                  "example": "example@gmail.com"
                 },
                 "createdAt": {
                   "type": "string",
@@ -332,6 +366,7 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
           },
           {
@@ -358,6 +393,7 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
           }
         ],
@@ -408,6 +444,7 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
           }
         ],
@@ -431,6 +468,7 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
           }
         ],
@@ -454,6 +492,7 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
           },
           {
@@ -470,7 +509,8 @@
                   "example": "Create a task"
                 },
                 "completed": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "example": false
                 }
               }
             }
@@ -527,6 +567,7 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
           },
           {
@@ -597,6 +638,7 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
           },
           {
@@ -647,6 +689,7 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
           },
           {
@@ -713,6 +756,7 @@
           {
             "in": "header",
             "name": "authorization",
+            "required": true,
             "type": "string"
           },
           {

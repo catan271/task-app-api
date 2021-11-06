@@ -1,20 +1,27 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.1",
   "info": {
     "title": "Task app API",
-    "description": "API description powered by Swagger UI.",
-    "version": "2.0.0"
+    "description": "API descriptions powered by Swagger UI.",
+    "version": "3.0.0"
   },
-  "schemes": [
-    "https",
-    "http"
+  "servers": [
+    {
+      "url": "https://catan-task-app.herokuapp.com"
+    },
+    {
+      "url": "http://localhost:4000"
+    }
   ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
   "paths": {
     "/users": {
       "post": {
@@ -22,83 +29,90 @@
           "USER"
         ],
         "summary": "Register a new user",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "user",
-            "schema": {
-              "type": "object",
-              "required": [
-                "name",
-                "email",
-                "password"
-              ],
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Example"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "example@gmail.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "Abcd1234"
-                },
-                "age": {
-                  "type": "number",
-                  "example": 20
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "email",
+                  "name",
+                  "password"
+                ],
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Example"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "example@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Abcd1234"
+                  },
+                  "age": {
+                    "type": "number",
+                    "example": 20
+                  }
                 }
               }
             }
-          }
-        ],
+          },
+          "required": false
+        },
         "responses": {
           "200": {
             "description": "Register Succeeded",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "user": {
+            "content": {
+              "application/json": {
+                "schema": {
                   "type": "object",
                   "properties": {
-                    "age": {
-                      "type": "number",
-                      "example": 20
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "age": {
+                          "type": "number",
+                          "example": 20
+                        },
+                        "_id": {
+                          "type": "string",
+                          "example": "6181f765cb884000167d5ce8"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Example"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "example@gmail.com"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2021-11-03T02:43:49.590Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2021-11-03T02:43:49.590Z"
+                        }
+                      }
                     },
-                    "_id": {
-                      "type": "string",
-                      "example": "6181f765cb884000167d5ce8"
-                    },
-                    "name": {
-                      "type": "string",
-                      "example": "Example"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "example@gmail.com"
-                    },
-                    "createdAt": {
-                      "type": "string",
-                      "example": "2021-11-03T02:43:49.590Z"
-                    },
-                    "updatedAt": {
-                      "type": "string",
-                      "example": "2021-11-03T02:43:49.590Z"
+                    "token": {
+                      "type": "string"
                     }
                   }
-                },
-                "token": {
-                  "type": "string"
                 }
               }
             }
           },
           "400": {
-            "description": "Register fail"
+            "description": "Register fail",
+            "content": {}
           }
-        }
+        },
+        "x-codegen-request-body-name": "user"
       }
     },
     "/users/login": {
@@ -107,36 +121,100 @@
           "USER"
         ],
         "summary": "Login",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "user",
-            "schema": {
-              "type": "object",
-              "required": [
-                "email",
-                "password"
-              ],
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "example": "example@gmail.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "Abcd1234"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "example@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Abcd1234"
+                  }
                 }
               }
             }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Login succeeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "age": {
+                          "type": "number",
+                          "example": 20
+                        },
+                        "_id": {
+                          "type": "string",
+                          "example": "6181f765cb884000167d5ce8"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Example"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "example@gmail.com"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2021-11-03T02:43:49.590Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2021-11-03T02:43:49.590Z"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Login failed",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "user"
+      }
+    },
+    "/users/me": {
+      "get": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Get profile",
+        "security": [
+          {
+            "bearerAuth": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Login succeeded",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "user": {
+            "description": "Get profile succeeded",
+            "content": {
+              "application/json": {
+                "schema": {
                   "type": "object",
                   "properties": {
                     "age": {
@@ -157,147 +235,20 @@
                     },
                     "createdAt": {
                       "type": "string",
-                      "example": "2021-11-03T02:43:49.590Z"
+                      "example": "2021-11-01T06:51:56.094Z"
                     },
                     "updatedAt": {
                       "type": "string",
-                      "example": "2021-11-03T02:43:49.590Z"
+                      "example": "2021-08-11T05:41:35.822Z"
                     }
                   }
-                },
-                "token": {
-                  "type": "string"
                 }
               }
             }
           },
           "400": {
-            "description": "Login failed"
-          }
-        }
-      }
-    },
-    "/users/me": {
-      "get": {
-        "tags": [
-          "USER"
-        ],
-        "summary": "Get profile",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Get profile succeeded",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "age": {
-                  "type": "number",
-                  "example": 20
-                },
-                "_id": {
-                  "type": "string",
-                  "example": "6181f765cb884000167d5ce8"
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Example"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "example@gmail.com"
-                },
-                "createdAt": {
-                  "type": "string",
-                  "example": "2021-11-01T06:51:56.094Z"
-                },
-                "updatedAt": {
-                  "type": "string",
-                  "example": "2021-08-11T05:41:35.822Z"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Get profile failed"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "USER"
-        ],
-        "summary": "Update profile",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "user update",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "age": {
-                  "type": "number"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Update succeeded",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "age": {
-                  "type": "number",
-                  "example": 20
-                },
-                "_id": {
-                  "type": "string",
-                  "example": "6113630f9cd6a9395c92ce35"
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Example"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "example@gmail.com"
-                },
-                "createdAt": {
-                  "type": "string",
-                  "example": "2021-11-01T06:51:56.094Z"
-                },
-                "updatedAt": {
-                  "type": "string",
-                  "example": "2021-08-11T05:41:35.822Z"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Update failed"
+            "description": "Get profile failed",
+            "content": {}
           }
         }
       },
@@ -306,51 +257,131 @@
           "USER"
         ],
         "summary": "Delete user",
-        "parameters": [
+        "security": [
           {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
+            "bearerAuth": []
           }
         ],
         "responses": {
           "200": {
             "description": "Delete succeeded",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "age": {
-                  "type": "number",
-                  "example": 20
-                },
-                "_id": {
-                  "type": "string",
-                  "example": "6113630f9cd6a9395c92ce35"
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Example"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "example@gmail.com"
-                },
-                "createdAt": {
-                  "type": "string",
-                  "example": "2021-11-01T06:51:56.094Z"
-                },
-                "updatedAt": {
-                  "type": "string",
-                  "example": "2021-08-11T05:41:35.822Z"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "age": {
+                      "type": "number",
+                      "example": 20
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "6113630f9cd6a9395c92ce35"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Example"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "example@gmail.com"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2021-11-01T06:51:56.094Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2021-08-11T05:41:35.822Z"
+                    }
+                  }
                 }
               }
             }
           },
           "400": {
-            "description": "Delete failed"
+            "description": "Delete failed",
+            "content": {}
           }
         }
+      },
+      "patch": {
+        "tags": [
+          "USER"
+        ],
+        "summary": "Update profile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "age": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Update succeeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "age": {
+                      "type": "number",
+                      "example": 20
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "6113630f9cd6a9395c92ce35"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Example"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "example@gmail.com"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2021-11-01T06:51:56.094Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2021-08-11T05:41:35.822Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Update failed",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "user update"
       }
     },
     "/users/avatar": {
@@ -359,28 +390,33 @@
           "USER"
         ],
         "summary": "Set avatar",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "parameters": [
+        "security": [
           {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "formData",
-            "name": "avatar",
-            "type": "file"
+            "bearerAuth": []
           }
         ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "Succeeded"
+            "description": "Succeeded",
+            "content": {}
           },
           "400": {
-            "description": "Fail"
+            "description": "Fail",
+            "content": {}
           }
         }
       },
@@ -389,20 +425,19 @@
           "USER"
         ],
         "summary": "Delete avatar",
-        "parameters": [
+        "security": [
           {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
+            "bearerAuth": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Succeeded"
+            "description": "Succeeded",
+            "content": {}
           },
           "400": {
-            "description": "Fail"
+            "description": "Fail",
+            "content": {}
           }
         }
       }
@@ -415,21 +450,29 @@
         "summary": "Get avatar",
         "parameters": [
           {
+            "name": "id",
             "in": "path",
             "required": true,
-            "name": "id",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "Succeeded",
-            "schema": {
-              "type": "file"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
             }
           },
           "400": {
-            "description": "Fail"
+            "description": "Fail",
+            "content": {}
           }
         }
       }
@@ -440,20 +483,19 @@
           "USER"
         ],
         "summary": "Logout",
-        "parameters": [
+        "security": [
           {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
+            "bearerAuth": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Logout succeeded"
+            "description": "Logout succeeded",
+            "content": {}
           },
           "400": {
-            "description": "Logout failed"
+            "description": "Logout failed",
+            "content": {}
           }
         }
       }
@@ -464,168 +506,191 @@
           "USER"
         ],
         "summary": "Logout all tokens",
-        "parameters": [
+        "security": [
           {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
+            "bearerAuth": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Logout succeeded"
+            "description": "Logout succeeded",
+            "content": {}
           },
           "400": {
-            "description": "Logout failed"
+            "description": "Logout failed",
+            "content": {}
           }
         }
       }
     },
     "/tasks": {
-      "post": {
-        "tags": [
-          "TASK"
-        ],
-        "summary": "Create tag",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "task",
-            "schema": {
-              "type": "object",
-              "required": [
-                "description"
-              ],
-              "properties": {
-                "description": {
-                  "type": "string",
-                  "example": "Create a task"
-                },
-                "completed": {
-                  "type": "boolean",
-                  "example": false
-                }
-              }
-            }
-          },
-          {
-            "in": "query",
-            "name": "completed",
-            "type": "boolean"
-          },
-          {
-            "in": "query",
-            "name": "sortedBy",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Succeeded",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "completed": {
-                  "type": "boolean"
-                },
-                "_id": {
-                  "type": "string"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "owner": {
-                  "type": "string"
-                },
-                "createdAt": {
-                  "type": "string"
-                },
-                "updatedAt": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Failed"
-          }
-        }
-      },
       "get": {
         "tags": [
           "TASK"
         ],
         "summary": "Get tasks",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "query",
             "name": "completed",
-            "type": "boolean"
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
           },
           {
-            "in": "query",
             "name": "sortedBy",
-            "type": "string"
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           },
           {
-            "in": "query",
             "name": "limit",
-            "type": "number"
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
           },
           {
-            "in": "query",
             "name": "skip",
-            "type": "number",
-            "description": "Example: createdAt:descending"
+            "in": "query",
+            "description": "Example: createdAt:descending",
+            "schema": {
+              "type": "number"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "Succeeded",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "completed": {
-                    "type": "boolean"
-                  },
-                  "_id": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "owner": {
-                    "type": "string"
-                  },
-                  "createdAt": {
-                    "type": "string"
-                  },
-                  "updatedAt": {
-                    "type": "string"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "completed": {
+                        "type": "boolean"
+                      },
+                      "_id": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      }
+                    }
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "Failed"
+            "description": "Failed",
+            "content": {}
           }
         }
+      },
+      "post": {
+        "tags": [
+          "TASK"
+        ],
+        "summary": "Create tag",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "completed",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "sortedBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "description"
+                ],
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "example": "Create a task"
+                  },
+                  "completed": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Succeeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "completed": {
+                      "type": "boolean"
+                    },
+                    "_id": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "task"
       }
     },
     "/tasks/{id}": {
@@ -634,116 +699,55 @@
           "TASK"
         ],
         "summary": "Get task by Id",
-        "parameters": [
+        "security": [
           {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "path",
-            "name": "id",
-            "type": "string",
-            "required": true
+            "bearerAuth": []
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Succeeded",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "completed": {
-                  "type": "boolean"
-                },
-                "_id": {
-                  "type": "string"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "owner": {
-                  "type": "string"
-                },
-                "createdAt": {
-                  "type": "string"
-                },
-                "updatedAt": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Failed"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "TASK"
-        ],
-        "summary": "Update task by Id",
         "parameters": [
           {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "path",
             "name": "id",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "body",
-            "name": "task",
+            "in": "path",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "description": {
-                  "type": "string",
-                  "example": "Update a task"
-                },
-                "completed": {
-                  "type": "boolean"
-                }
-              }
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "Succeeded",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "completed": {
-                  "type": "boolean"
-                },
-                "_id": {
-                  "type": "string"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "owner": {
-                  "type": "string"
-                },
-                "createdAt": {
-                  "type": "string"
-                },
-                "updatedAt": {
-                  "type": "string"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "completed": {
+                      "type": "boolean"
+                    },
+                    "_id": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
           },
           "400": {
-            "description": "Failed"
+            "description": "Failed",
+            "content": {}
           }
         }
       },
@@ -752,49 +756,131 @@
           "TASK"
         ],
         "summary": "Update task by Id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
-            "in": "header",
-            "name": "authorization",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "path",
             "name": "id",
-            "type": "string",
-            "required": true
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "Succeeded",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "completed": {
-                  "type": "boolean"
-                },
-                "_id": {
-                  "type": "string"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "owner": {
-                  "type": "string"
-                },
-                "createdAt": {
-                  "type": "string"
-                },
-                "updatedAt": {
-                  "type": "string"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "completed": {
+                      "type": "boolean"
+                    },
+                    "_id": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
           },
           "400": {
-            "description": "Failed"
+            "description": "Failed",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "TASK"
+        ],
+        "summary": "Update task by Id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "example": "Update a task"
+                  },
+                  "completed": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Succeeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "completed": {
+                      "type": "boolean"
+                    },
+                    "_id": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed",
+            "content": {}
           }
         }
       }

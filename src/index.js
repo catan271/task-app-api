@@ -21,3 +21,5 @@ app.listen(port, () => {
     console.log('Server is up on port', port)
     console.log(`See API docs at http://${process.env.HOST}/api-docs`)
 })
+
+module.exports = app
